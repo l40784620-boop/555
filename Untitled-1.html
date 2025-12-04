@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عيد ميلاد حبيبتي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:ital,wght@1,700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%);
+            font-family: 'Cairo', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 420px;
+            position: relative;
+            z-index: 10;
+            animation: slideUp 1.5s ease;
+            border: 1px solid #fff;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 2.8rem;
+            margin: 0;
+            font-family: 'Great Vibes', cursive;
+            line-height: 1.2;
+        }
+        
+        .sub-title {
+            font-family: 'Cairo', sans-serif;
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* تنسيق الشعر */
+        .poem {
+            font-family: 'Amiri', serif; /* خط أميري مناسب للشعر */
+            font-weight: 700;
+            font-style: italic;
+            color: #444;
+            font-size: 1.3rem;
+            line-height: 2.2;
+            margin: 20px 0;
+            background-color: #fff0f5; /* خلفية وردية خفيفة للشعر */
+            padding: 15px;
+            border-radius: 10px;
+            border-right: 4px solid #d63384;
+        }
+
+        .poem span {
+            color: #d63384;
+        }
+
+        .photo-frame {
+            width: 140px;
+            height: 140px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            overflow: hidden;
+            border: 4px solid #ff9a9e;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            color: #d63384;
+            font-weight: bold;
+            border: none;
+            padding: 12px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(214, 51, 132, 0.2);
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(214, 51, 132, 0.4);
+        }
+
+        .heart {
+            position: absolute;
+            color: #e91e63;
+            opacity: 0.7;
+            animation: float 7s linear infinite;
+            bottom: -20px;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="hearts-container"></div>
+    <canvas id="confetti"></canvas>
+
+    <div class="card">
+        <div class="photo-frame">
+            <img src="https://cdn-icons-png.flaticon.com/512/2904/2904973.png" alt="Love">
+        </div>
+        
+        <h1>Happy Birthday</h1>
+        <div class="sub-title">إلى أغلى ما في الكون</div>
+        
+        <div class="poem">
+            يا أجمل من زاد عمرها سنة<br>
+            ويا <span>صدفة عمري</span> الحلوة<br>
+            كل عام وأنتِ لروحي حياة<br>
+            ولقلبي نبضٌ لا ينتهي
+        </div>
+
+        <button onclick="celebrate()">أحبك (اضغطي هنا) ❤️</button>
+    </div>
+
+    <script>
+        // إنشاء القلوب
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = ['❤', '💖', '💕'][Math.floor(Math.random() * 3)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+                heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // الكونفيتي
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let confetti = [];
+        const colors = ['#ff6b6b', '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd'];
+
+        function celebrate() {
+            for (let i = 0; i < 350; i++) {
+                confetti.push({
+                    x: canvas.width / 2,
+                    y: canvas.height / 2,
+                    w: Math.random() * 8 + 5,
+                    h: Math.random() * 8 + 5,
+                    dx: (Math.random() - 0.5) * 25,
+                    dy: (Math.random() - 0.5) * 25,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    life: 200
+                });
+            }
+            animateConfetti();
+            const btn = document.querySelector('button');
+            btn.textContent = "كل عام وأنتِ معي 💍";
+            btn.style.background = "#fff";
+        }
+
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < confetti.length; i++) {
+                const p = confetti[i];
+                p.x += p.dx * 0.95; // friction
+                p.y += p.dy * 0.95 + 2; // gravity
+                p.life--;
+                
+                if (p.life > 0) {
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(p.x, p.y, p.w, p.h);
+                } else {
+                    confetti.splice(i, 1);
+                    i--;
+                }
+            }
+            if (confetti.length > 0) requestAnimationFrame(animateConfetti);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
